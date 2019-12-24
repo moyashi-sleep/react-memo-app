@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.47f08834.chunk.js",
-    "main.js.map": "/static/js/main.47f08834.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.2e104ebc.js",
-    "runtime-main.js.map": "/static/js/runtime-main.2e104ebc.js.map",
-    "static/js/2.1b57277d.chunk.js": "/static/js/2.1b57277d.chunk.js",
-    "static/js/2.1b57277d.chunk.js.map": "/static/js/2.1b57277d.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.9e18a2cf65ebff415b923332cb7066cd.js": "/precache-manifest.9e18a2cf65ebff415b923332cb7066cd.js",
-    "service-worker.js": "/service-worker.js"
+    "main.js": "/react-memo-app/static/js/main.cfb2fe47.chunk.js",
+    "main.js.map": "/react-memo-app/static/js/main.cfb2fe47.chunk.js.map",
+    "runtime-main.js": "/react-memo-app/static/js/runtime-main.1a964b74.js",
+    "runtime-main.js.map": "/react-memo-app/static/js/runtime-main.1a964b74.js.map",
+    "static/js/2.1b57277d.chunk.js": "/react-memo-app/static/js/2.1b57277d.chunk.js",
+    "static/js/2.1b57277d.chunk.js.map": "/react-memo-app/static/js/2.1b57277d.chunk.js.map",
+    "index.html": "/react-memo-app/index.html",
+    "precache-manifest.0ef159b2deed74c383bf7bad236ae309.js": "/react-memo-app/precache-manifest.0ef159b2deed74c383bf7bad236ae309.js",
+    "service-worker.js": "/react-memo-app/service-worker.js"
   },
   "entrypoints": [
-    "static/js/runtime-main.2e104ebc.js",
+    "static/js/runtime-main.1a964b74.js",
     "static/js/2.1b57277d.chunk.js",
-    "static/js/main.47f08834.chunk.js"
+    "static/js/main.cfb2fe47.chunk.js"
   ]
 }
