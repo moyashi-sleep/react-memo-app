@@ -1,0 +1,600 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('icomoon/fonts/icomoon.eot?jz3ed3');
+  src:  url('icomoon/fonts/icomoon.eot?jz3ed3#iefix') format('embedded-opentype'),
+    url('icomoon/fonts/icomoon.ttf?jz3ed3') format('truetype'),
+    url('icomoon/fonts/icomoon.woff?jz3ed3') format('woff'),
+    url('icomoon/fonts/icomoon.svg?jz3ed3#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon {
+  font-family: 'icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  color: #4e5665;
+}
+
+div {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.icon-size {
+  font-size: 20px;
+}
+
+.base {
+  display: flex;
+  flex-direction: row;
+}
+
+/****************************
+  Tooltip
+*****************************/
+/* アイコンhover時のツールチップ */
+/* フォントアイコンが::beforeを使っているので吹き出し三角部分は無し */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 10;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  display: block;
+  width: max-content;
+  background-color: #4e5665;
+  border-radius: 8px;
+  color: white;
+  font-size: 12px;
+  padding: 5px 7px;
+  top: 30px;
+  transition: all 300ms ease 0ms;
+  pointer-events: none;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/****************************
+  FilterList
+*****************************/
+.filter-list-pane {
+  width: 250px;
+  height: 100vh;
+  border-right: 1px solid lightgrey;
+}
+
+.main-filter-list {
+  width: 100%;
+  height: 120px;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.filter-list-icon {
+  color: inherit;
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.show-all-button {
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  transition: background-color 300ms ease 0ms;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+
+.show-all-button:hover {
+  background-color: #eaeaea;
+}
+
+.show-all-button:active {
+  background-color: gainsboro;
+}
+
+.show-trash-button {
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  transition: background-color 300ms ease 0ms;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+
+.show-trash-button:hover {
+  background-color: #eaeaea;
+}
+
+.show-trash-button:active {
+  background-color: gainsboro;
+}
+
+.tag-filter-list {
+  width: 100%;
+  height: calc(100vh - 120px);
+  font-size: 16px;
+  overflow: auto;
+  padding: 25px;
+}
+
+.tag-filter-list-header {
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 2px 10px;
+}
+
+.edit-filter-list-button {
+  color: #1c81e6;
+  opacity: 0;
+  /* クリックするためにはhoverしなきゃいけないのでvisibility: hiddenで隠す必要はないと思う */
+  /* 必要ならmodalと同じようにtransitionを設定する */
+  transition: opacity 300ms ease 0ms;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.tag-filter-list-header:hover .edit-filter-list-button {
+  opacity: 1;
+}
+
+.tag-filter-list-row {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  border-radius: 8px;
+  margin: 2px 0px;
+  transition: background-color 300ms ease 0ms;
+  padding: 2px 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.tag-filter-list-row:hover {
+  background-color: #eaeaea;
+}
+
+.tag-filter-list-row:active{
+  background-color: gainsboro;
+}
+
+.filter-selected {
+  color: #1c81e6;
+}
+
+.delete-tag-button {
+  position: absolute;
+  color: red;
+  opacity: 0;
+  visibility: hidden;
+  left: -10px;
+  transition: all 300ms ease 0ms;
+}
+
+.list-editing .delete-tag-button {
+  opacity: 1;
+  visibility: visible;
+  left: 10px;
+}
+
+.tag-filter-list-row-name {
+  position: absolute;
+  color: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  left: 10px;
+  transition: left 300ms ease 0ms;
+}
+
+.list-editing .tag-filter-list-row-name {
+  left: 30px;
+}
+
+/****************************
+  NoteList
+*****************************/
+.note-list-pane {
+  width: 300px;
+  height: 100vh;
+  border-right: 1px solid lightgrey;
+}
+
+.note-list-utility {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  padding: 0px 20px;
+}
+
+.add-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c81e6;
+  font-size: 20px;
+  transition: background-color 300ms ease 0ms;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #eaeaea;
+}
+
+.add-button:active{
+  background-color: gainsboro;
+}
+
+.button-disable {
+  color: darkgray;
+  pointer-events: none;
+}
+
+.note-list {
+  width: 100%;
+  height: calc(100vh - 60px);
+  overflow: auto;
+}
+
+.note-list-row {
+  width: 100%;
+  height: 64px;
+  padding: 10px 30px 10px 30px;
+  position: relative;
+}
+
+.note-list-row::before {
+  width: 80%;
+  height: 1px;
+  content: '';
+  background-color: lightgray;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.note-list-row-selected {
+  background-color: #b3daff;
+}
+
+.note-list-row-title {
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.note-list-row-content {
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.note-list-message {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/****************************
+  Editor
+*****************************/
+.editor-pane {
+  width: calc(100% - 550px);
+  height: 100vh;
+}
+
+.editor-utility {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0px 15px;
+}
+
+.separator {
+  width: 1px;
+  height: 30px;
+  background-color: lightgray;
+  margin: 0px 8px;
+}
+
+.preview-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c81e6;
+  font-size: 20px;
+  transition: background-color 300ms ease 0ms;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.preview-button:hover {
+  background-color: #eaeaea;
+}
+
+.preview-button:active{
+  background-color: gainsboro;
+}
+
+.trash-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c81e6;
+  font-size: 20px;
+  transition: background-color 300ms ease 0ms;
+  cursor: pointer;
+}
+
+.trash-button:hover {
+  background-color: #eaeaea;
+}
+
+.trash-button:active{
+  background-color: gainsboro;
+}
+
+.restore-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c81e6;
+  font-size: 20px;
+  transition: background-color 300ms ease 0ms;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.restore-button:hover {
+  background-color: #eaeaea;
+}
+
+.restore-button:active{
+  background-color: gainsboro;
+}
+
+.delete-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-size: 22px;
+  transition: background-color 300ms ease 0ms;
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #eaeaea;
+}
+
+.delete-button:active{
+  background-color: gainsboro;
+}
+
+.info-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c81e6;
+  font-size: 22px;
+  transition: background-color 300ms ease 0ms;
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.info-button:hover {
+  background-color: #eaeaea;
+}
+
+.info-button:active{
+  background-color: gainsboro;
+}
+
+
+/*
+.information-pane {
+  width: 200px;
+  height: calc(100vh - 60px);
+  background-color: black;
+  position: fixed;
+  bottom: 0%;
+  right: -100%;
+  transition: right 300ms ease-in 0ms;
+}
+
+#information-checkbox:checked+label+.information-pane {
+  right: 0%;
+}
+*/
+
+.modal-outer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: black;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease 0ms, visibility 300ms ease 0ms;
+  z-index: 100;
+}
+
+.modal-outer-open {
+  opacity: 0.2;
+  visibility: visible;
+}
+
+.modal-inner {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  background-color: white;
+  border-left: 1px solid darkgray;
+  padding: 15px 15px 15px 25px;
+  right: -300px;
+  transition: right 300ms ease 0ms;
+  z-index: 110;
+}
+
+.modal-inner-open {
+  right: 0px;
+}
+
+.modal-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c81e6;
+  font-size: 18px;
+  transition: background-color 300ms ease 0ms;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #eaeaea;
+}
+
+.close-button:active{
+  background-color: gainsboro;
+}
+
+.editor-area-container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-flow: column;
+}
+
+.editor-area {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+  padding: 25px 25px 15px 25px;
+}
+
+.tag-area {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 10px 10px;
+}
+
+.tag-item {
+  max-width: 100%;
+  background-color: lightgray;
+  border-radius: 10px;
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: background-color 300ms ease 0ms;
+  padding: 0px 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.tag-item:hover {
+  background-color: lightsteelblue;
+}
+
+.add-tag-field {
+  height: 24px;
+  border: none;
+  outline: none;
+  margin: 5px;
+}
