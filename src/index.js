@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import createSagaMiddleware from 'redux-saga';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware , compose} from 'redux';
 import rootReducer from './reducers';
 import rootSaga from './sagas';
 import { Provider } from "react-redux";
@@ -12,9 +12,11 @@ import { Provider } from "react-redux";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-sagaMiddleware.run(rootSaga)
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
