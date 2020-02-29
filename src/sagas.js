@@ -1,10 +1,12 @@
 import { fork, take, put, select } from "redux-saga/effects";
-import { ADD_NOTE, CHANGE_FILTER, updateVisibleId, TRASH_NOTE, RESTORE_NOTE, DELETE_NOTE } from "./actions/actions";
+import { ADD_NOTE, CHANGE_FILTER, updateVisibleId, TRASH_NOTE, RESTORE_NOTE, DELETE_NOTE, ADD_TAG_TO_LIST, addTagToNote } from "./actions/actions";
 import { selectNote } from "./actions/actions";
 
 const getNotes = state => state.notes;
 const getVisibleIdList = state => state.notes.visibleIdList;
 const getNoteFilter = state => state.noteFilter;
+const getTagList = state => state.tagList;
+const getSelectedNoteId = state => state.selectedNoteId;
 
 function* handleAddNote() {
   while (true) {
@@ -61,6 +63,19 @@ function* handleDeleteNote() {
   yield waitAbstractNoteAction(DELETE_NOTE);
 }
 
+// TagListへのタグ追加を待つ
+function* handleAddTag() {
+  while (true) {
+    const action = yield take(ADD_TAG_TO_LIST);
+    const tagList = yield select(getTagList);
+    const selectedNoteId = yield select(getSelectedNoteId);
+    // TagList内の同名タグを探す
+    // 初めて追加するタグの場合でもaddTagToListの後なので必ず見つかる(undefにならない)
+    const tagInList = tagList.find(tag => tag.tagName === action.payload.tagName);
+    // 同名タグのIDを利用する
+    yield put(addTagToNote(selectedNoteId, tagInList.id, action.payload.tagName));
+  }
+}
 
 
 export default function* rootSaga() {
@@ -69,4 +84,5 @@ export default function* rootSaga() {
   yield fork(handleTrashNote);
   yield fork(handleRestoreNote);
   yield fork(handleDeleteNote);
+  yield fork(handleAddTag);
 }
