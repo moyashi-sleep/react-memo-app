@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TagFilterListRow from "./TagFilterListRow";
 
-const TagFilterList = ({noteFilter, tagList, onClickTagFilter}) => {
+const TagFilterList = ({noteFilter, tagList, onClickTagFilter, onClickDeleteButton}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -18,7 +18,9 @@ const TagFilterList = ({noteFilter, tagList, onClickTagFilter}) => {
             key={listItem.id}
             noteFilter={noteFilter}
             tag={listItem}
-            onClick={onClickTagFilter}
+            onClickTagFilter={onClickTagFilter}
+            onClickDeleteButton={onClickDeleteButton}
+            isEditing={isEditing}
           />
         );
       })}

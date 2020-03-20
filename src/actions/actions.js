@@ -10,6 +10,7 @@ export const ADD_TAG_TO_NOTE = "ADD_TAG_TO_NOTE";
 export const ADD_TAG_TO_LIST = "ADD_TAG_TO_LIST";
 export const REMOVE_TAG_FROM_NOTE = "REMOVE_TAG_FROM_NOTE";
 export const REMOVE_TAG_FROM_LIST = "REMOVE_TAG_FROM_LIST";
+export const REMOVE_TAG_FROM_ALL_NOTE = "REMOVE_TAG_FROM_ALL_NOTE";
 
 let nextNoteId = 0;
 export const addNote = (defaultTag, created) => {
@@ -70,6 +71,7 @@ export const selectNote = (id) => {
   });
 };
 
+// TODO: 第2引数の名前を変える(filterNameとか、stateと合わせるべき)
 export const changeFilter = (id, noteFilter) => {
   return ({
     type: CHANGE_FILTER,
@@ -80,6 +82,7 @@ export const changeFilter = (id, noteFilter) => {
   });
 };
 
+// TODO: 引数にObjectを要求する仕様を変える(id, Nameを個別に受け取るように)
 export const updateVisibleId = (noteFilter) => {
   return ({
     type: UPDATE_VISIBLE_ID,
@@ -123,6 +126,15 @@ export const removeTagFromNote = (noteId, id) => {
 export const removeTagFromList = (tagName) => {
   return {
     type: REMOVE_TAG_FROM_LIST,
+    payload: {
+      tagName
+    }
+  };
+};
+
+export const removeTagFromAllNote = (tagName) => {
+  return {
+    type: REMOVE_TAG_FROM_ALL_NOTE,
     payload: {
       tagName
     }
