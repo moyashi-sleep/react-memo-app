@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_TEXT, TRASH_NOTE, UPDATE_VISIBLE_ID, ADD_TAG_TO_NOTE, restoreNote, RESTORE_NOTE, DELETE_NOTE, REMOVE_TAG_FROM_NOTE } from "../actions/actions";
+import { ADD_NOTE, UPDATE_TEXT, TRASH_NOTE, UPDATE_VISIBLE_ID, ADD_TAG_TO_NOTE, restoreNote, RESTORE_NOTE, DELETE_NOTE, REMOVE_TAG_FROM_NOTE, REMOVE_TAG_FROM_ALL_NOTE } from "../actions/actions";
 import { ID_SHOW_ALL, ID_SHOW_TRASH } from "./noteFilterReducer";
 
 const initialState = {
@@ -128,6 +128,21 @@ export const notes = (state = initialState, action) => {
           }),
           ...state.noteList.slice(noteIndex + 1)
         ]
+      });
+    case REMOVE_TAG_FROM_ALL_NOTE:
+      return Object.assign({}, state, {
+        // 該当のタグを削除したnoteを要素とするnoteListを作成し、stateとassignする
+        noteList: state.noteList.map((note) => {
+          // 該当タグのtags内インデックスを取得する
+          const tagIndex = note.tags.findIndex(tag => tag.tagName === action.payload.tagName);
+          // 該当タグを削除したnoteを返す
+          return Object.assign({}, note, {
+            tags: [
+              ...note.tags.slice(0, tagIndex),
+              ...note.tags.slice(tagIndex + 1)
+            ]
+          })
+        })
       });
     default:
       return state;

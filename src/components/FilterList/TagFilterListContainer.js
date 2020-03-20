@@ -1,4 +1,4 @@
-import { changeFilter } from "../../actions/actions";
+import { changeFilter, removeTagFromList, removeTagFromAllNote } from "../../actions/actions";
 import TagFilterList from "./TagFilterList";
 import { connect } from "react-redux";
 
@@ -13,7 +13,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onClickTagFilter: (id, noteFilter) => {
       dispatch(changeFilter(id, noteFilter));
-    }
+    },
+    onClickDeleteButton: (tagName) => {
+      dispatch(removeTagFromList(tagName));
+      dispatch(removeTagFromAllNote(tagName));
+    },
   };
 };
 

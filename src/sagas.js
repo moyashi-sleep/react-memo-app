@@ -1,5 +1,5 @@
 import { fork, take, put, select } from "redux-saga/effects";
-import { ADD_NOTE, CHANGE_FILTER, updateVisibleId, TRASH_NOTE, RESTORE_NOTE, DELETE_NOTE, ADD_TAG_TO_LIST, addTagToNote } from "./actions/actions";
+import { ADD_NOTE, CHANGE_FILTER, updateVisibleId, TRASH_NOTE, RESTORE_NOTE, DELETE_NOTE, ADD_TAG_TO_LIST, addTagToNote, REMOVE_TAG_FROM_ALL_NOTE } from "./actions/actions";
 import { selectNote } from "./actions/actions";
 
 const getNotes = state => state.notes;
@@ -8,6 +8,7 @@ const getNoteFilter = state => state.noteFilter;
 const getTagList = state => state.tagList;
 const getSelectedNoteId = state => state.selectedNoteId;
 
+// ノートが追加されたら、そのノートにフォーカスする
 function* handleAddNote() {
   while (true) {
     // ADD_NOTEのdispatchを待ち、dispatchされたらactionを取得する
@@ -17,14 +18,17 @@ function* handleAddNote() {
   }
 }
 
+// Filterが変更されたら、表示対象を更新して1番目のノートにフォーカスする
 function* handleChangeFilter() {
   while (true) {
     const action = yield take(CHANGE_FILTER);
+    // 表示対象を更新する
     yield put(updateVisibleId({
       id: action.payload.id,
       filterName: action.payload.noteFilter
     }));
     const visibleIdList = yield select(getVisibleIdList);
+    // 表示対象が0個ならnull、そうでないなら最初のノートにフォーカス
     yield put(selectNote(visibleIdList.length === 0 ? null : visibleIdList[0]));
   }
 }
@@ -63,7 +67,20 @@ function* handleDeleteNote() {
   yield waitAbstractNoteAction(DELETE_NOTE);
 }
 
-// TagListへのタグ追加を待つ
+// 全ノートから任意のタグが削除されたら、表示対象を更新する
+function* handleRemoveTagFromAllNote() {
+  while (true) {
+    // タグ削除を待つ
+    yield take(REMOVE_TAG_FROM_ALL_NOTE);
+    // 現在のnoteFilterを取得する
+    const noteFilter = yield select(getNoteFilter);
+    // 表示対象を更新する
+    // 削除したタグでフィルタしていた場合は表示対象が0に、そうでない場合は変化なし
+    yield put(updateVisibleId(noteFilter));
+  }
+}
+
+// TagListへタグが追加されたら、ノートにそのタグを追加する
 function* handleAddTag() {
   while (true) {
     const action = yield take(ADD_TAG_TO_LIST);
@@ -85,4 +102,5 @@ export default function* rootSaga() {
   yield fork(handleRestoreNote);
   yield fork(handleDeleteNote);
   yield fork(handleAddTag);
+  yield fork(handleRemoveTagFromAllNote);
 }
