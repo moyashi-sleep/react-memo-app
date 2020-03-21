@@ -1,3 +1,5 @@
+import { generateUuid } from "../utility";
+
 export const ADD_NOTE = "ADD_NOTE";
 export const UPDATE_TEXT = "UPDATE_TEXT";
 export const TRASH_NOTE = "TRASH_NOTE";
@@ -12,12 +14,11 @@ export const REMOVE_TAG_FROM_NOTE = "REMOVE_TAG_FROM_NOTE";
 export const REMOVE_TAG_FROM_LIST = "REMOVE_TAG_FROM_LIST";
 export const REMOVE_TAG_FROM_ALL_NOTE = "REMOVE_TAG_FROM_ALL_NOTE";
 
-let nextNoteId = 0;
 export const addNote = (defaultTag, created) => {
   return ({
     type: ADD_NOTE,
     payload: {
-      id: nextNoteId++,
+      id: generateUuid(),
       defaultTag,
       created,
     }

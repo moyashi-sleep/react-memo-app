@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { generateUuid } from "../../utility";
 
 const TagInputPopup = ({tagList, selectedNoteTags, addTag, isOpen, setIsOpen}) => {
   const inputRef = useRef();
@@ -55,7 +56,7 @@ const TagInputPopup = ({tagList, selectedNoteTags, addTag, isOpen, setIsOpen}) =
           const inputString = event.target.value.trim();
           // 入力が0文字ではなくEnterキー押下かつ日本語入力未確定中(keyCode = 229)じゃなければ
           if (inputString.length !== 0 && event.key === "Enter" && event.keyCode !== 229) {
-            addTag(Date.now(), inputString);
+            addTag(generateUuid(), inputString);
             // textboxの入力値を消去する
             event.target.value = "";
           }
