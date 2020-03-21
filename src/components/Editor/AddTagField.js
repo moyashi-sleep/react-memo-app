@@ -1,12 +1,11 @@
 import React from "react";
 
-const AddTagField = ({selectedNoteId, onKeyDown}) => {
+const AddTagField = ({onKeyDown}) => {
   return (
     <input
       type="text"
       className="add-tag-field"
-      placeholder={selectedNoteId === null ? "" : "Add a tag..."}
-      readOnly={selectedNoteId === null ? true : false}
+      placeholder="Add a tag..."
       onKeyDown={(event) => {
         const inputString = event.target.value.trim();
         // 入力が0文字ではなくEnterキー押下かつ日本語入力未確定中(keyCode = 229)じゃなければ

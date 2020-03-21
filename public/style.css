@@ -570,8 +570,14 @@ div {
 .tag-area {
   width: 100%;
   display: flex;
-  flex-flow: row wrap;
   padding: 10px 10px;
+}
+
+.tag-container {
+  width: calc(100% - 32px);
+  display: flex;
+  flex-flow: row wrap;
+  padding-right: 5px;
 }
 
 .tag-item {
@@ -592,9 +598,122 @@ div {
   background-color: lightsteelblue;
 }
 
+.add-tag-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  color: #1c81e6;
+  font-size: 20px;
+  transition: background-color 300ms ease 0ms;
+  cursor: pointer;
+}
+
+.add-tag-button:hover {
+  background-color: #eaeaea;
+}
+
+.add-tag-button:active{
+  background-color: gainsboro;
+}
+
 .add-tag-field {
+  width: 150px;
   height: 24px;
   border: none;
   outline: none;
-  margin: 5px;
+  padding: 0px 8px;
+}
+
+.add-tag-field::before {
+  content: "";
+  width: calc(100% - 10px);
+  height: 1px;
+  background-color: lightgray;
+  position: absolute;
+  top: -5px;
+}
+
+.TagInputPopup {
+  width: 170px;
+  position: fixed;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px 9px;
+  right: 12px;
+  bottom: 50px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0ms ease 0ms, visibility 0ms ease 0ms;
+}
+
+.TagInputPopup.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.TagInputPopup::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-width: 10px 8px 0px 8px;
+  border-color: lightgray transparent transparent transparent;
+  border-style: solid;
+  position: absolute;
+  right: 7px;
+  bottom: -10px;
+}
+
+.TagInputPopup::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-width: 10px 8px 0px 8px;
+  border-color: white transparent transparent transparent;
+  border-style: solid;
+  position: absolute;
+  right: 7px;
+  bottom: -8px;
+}
+
+.TagInputPopup-list {
+  max-height: 108px;
+  overflow: auto;
+}
+
+.TagInputPopup-list:not(:empty) {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+.TagInputPopup-row {
+  height: 24px;
+  margin: 2px 0px;
+  padding: 0px 8px;
+  border-radius: 8px;
+  transition: background-color 300ms ease 0ms;
+  cursor: pointer;
+}
+
+.TagInputPopup-row:first-child {
+  margin-top: 0px;
+}
+
+.TagInputPopup-row:last-child {
+  margin-bottom: 0px;
+}
+
+.TagInputPopup-row:hover {
+  background-color: #eaeaea;
+}
+
+.TagInputPopup-row:active{
+  background-color: gainsboro;
 }
