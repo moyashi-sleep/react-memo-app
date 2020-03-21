@@ -26,3 +26,19 @@ export const getFirstLineOfContent = (text) => {
   // タイトル行を空文字列に置き換えて、タイトル行後の改行を削除、改行以外の文字列を抜き出す
   return text.trimStart().replace(/.*/, "").trimStart().match(/.*/);
 }
+
+// UUID(v4)を生成する
+export const generateUuid = () => {
+  let chars = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".split("");
+  for (let i = 0; i < chars.length; i++) {
+    switch (chars[i]) {
+      case "x":
+        chars[i] = Math.floor(Math.random() * 16).toString(16);
+        break;
+      case "y":
+        chars[i] = (Math.floor(Math.random() * 4) + 8).toString(16);
+        break;
+    }
+  }
+  return chars.join("");
+}

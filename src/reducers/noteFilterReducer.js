@@ -1,7 +1,8 @@
 import { CHANGE_FILTER } from "../actions/actions";
+import { generateUuid } from "../utility";
 
-export const ID_SHOW_ALL = Date.now();
-export const ID_SHOW_TRASH = ID_SHOW_ALL + 1;
+export const ID_SHOW_ALL = generateUuid();
+export const ID_SHOW_TRASH = generateUuid();
 
 const initialState = {
   id: ID_SHOW_ALL,
