@@ -18,9 +18,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onKeyDownHandler: (id, tagName) => {
-      dispatch(addTagToList(id, tagName));
-    },
     onClickTag: (noteId, id) => {
       dispatch(removeTagFromNote(noteId, id))
     }

@@ -136,7 +136,7 @@ export const notes = (state = initialState, action) => {
           // 該当タグのtags内インデックスを取得する
           const tagIndex = note.tags.findIndex(tag => tag.tagName === action.payload.tagName);
           // 該当タグを削除したnoteを返す
-          return Object.assign({}, note, {
+          return tagIndex === -1 ? note : Object.assign({}, note, {
             tags: [
               ...note.tags.slice(0, tagIndex),
               ...note.tags.slice(tagIndex + 1)
