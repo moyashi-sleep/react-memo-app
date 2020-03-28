@@ -6,7 +6,7 @@ const NoteList = ({ filteredList, selectedNoteId, onClickRow }) => {
   return (
     <div className="note-list">
       {selectedNoteId === null ? <div className="note-list-message">No Notes</div> : <></>}
-      <Scrollable width="100%" height="100%">
+      <Scrollable width="100%" maxHeight="100%">
         {filteredList.map((listItem) => {
           return (
             <NoteListRow

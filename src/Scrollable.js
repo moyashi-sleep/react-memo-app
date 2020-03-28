@@ -93,11 +93,11 @@ const Scrollable = ({children, width, maxWidth, height, maxHeight}) => {
     // outerに対するinnerの高さの割合
     const sizeRate = outerHeight / innerHeight;
     // thumbの高さを更新する
-    barThumbRef.current.style.height = (sizeRate <= 1 ? Math.floor(barTrackRef.current.offsetHeight * sizeRate) : 0) + "px";
+    barThumbRef.current.style.height = (sizeRate < 1 ? Math.floor(barTrackRef.current.offsetHeight * sizeRate) : 0) + "px";
     // thumbを適切な位置へ移動する
     animateThumb(position.current, 100);
 
-    if (innerHeight >= outerHeight) {
+    if (innerHeight > outerHeight) {
       activate();
     } else {
       deactivate();
