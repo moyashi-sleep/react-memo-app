@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TagFilterListRow from "./TagFilterListRow";
+import Scrollable from "../../Scrollable";
 
 const TagFilterList = ({noteFilter, tagList, onClickTagFilter, onClickDeleteButton}) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -12,18 +13,20 @@ const TagFilterList = ({noteFilter, tagList, onClickTagFilter, onClickDeleteButt
           {isEditing ? "Done" : "Edit"}
         </span>
       </div>
-      {tagList.map((listItem) => {
-        return (
-          <TagFilterListRow
-            key={listItem.id}
-            noteFilter={noteFilter}
-            tag={listItem}
-            onClickTagFilter={onClickTagFilter}
-            onClickDeleteButton={onClickDeleteButton}
-            isEditing={isEditing}
-          />
-        );
-      })}
+      <Scrollable height="calc(100% - 28px)">
+        {tagList.map((listItem) => {
+          return (
+            <TagFilterListRow
+              key={listItem.id}
+              noteFilter={noteFilter}
+              tag={listItem}
+              onClickTagFilter={onClickTagFilter}
+              onClickDeleteButton={onClickDeleteButton}
+              isEditing={isEditing}
+            />
+          );
+        })}
+      </Scrollable>
     </div>
   );
 };

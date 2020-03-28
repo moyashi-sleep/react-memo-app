@@ -162,7 +162,7 @@ div {
   width: 100%;
   height: calc(100vh - 120px);
   font-size: 16px;
-  overflow: auto;
+  overflow: hidden;
   padding: 25px;
 }
 
@@ -290,7 +290,7 @@ div {
 .note-list {
   width: 100%;
   height: calc(100vh - 60px);
-  overflow: auto;
+  overflow: hidden;
 }
 
 .note-list-row {
@@ -682,9 +682,13 @@ div {
   bottom: -8px;
 }
 
-.TagInputPopup-list {
-  max-height: 108px;
-  overflow: auto;
+.TagInputPopup.selectable .Scrollable-outer {
+  margin-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+.TagInputPopup .Scrollable-inner:not(:empty) {
+  padding-bottom: 5px;
 }
 
 .TagInputPopup-list:not(:empty) {
