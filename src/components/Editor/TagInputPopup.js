@@ -1,6 +1,7 @@
-import React, { useRef, useCallback, useEffect } from "react";
+import React, { useRef, useCallback, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { generateUuid } from "../../utility";
+import Scrollable from "../../Scrollable";
 
 const TagInputPopup = ({tagList, selectedNoteTags, addTag, isOpen, setIsOpen}) => {
   const inputRef = useRef();
@@ -28,25 +29,28 @@ const TagInputPopup = ({tagList, selectedNoteTags, addTag, isOpen, setIsOpen}) =
     inputRef.current.focus();
   }, [isOpen])
 
+  // tagListにあり、選択中のノートにはないタグを抽出する
+  const selectableTags = useMemo(() => {
+    return tagList.filter(tagInList => !selectedNoteTags.some(tag => tag.id === tagInList.id));
+  }, [tagList, selectedNoteTags]);
+
   return ReactDOM.createPortal(
-    <div className={"TagInputPopup" + (isOpen ? " open" : "")}>
-      <div className="TagInputPopup-list">
+    <div className={"TagInputPopup" + (isOpen ? " open" : "") + (selectableTags.length === 0 ? "" : " selectable")}>
+      <Scrollable maxHeight="108px">
         {
-          // tagListにあり、選択中のノートにはないタグを抽出する
-          tagList.filter(tagInList => !selectedNoteTags.some(tag => tag.id === tagInList.id))
-          .map(tag => {
+          selectableTags.map(tag => {
             return (
               <div
                 key={tag.id}
                 className="TagInputPopup-row"
-                onClick={() => {addTag(tag.id, tag.tagName);}}
+                onClick={() => { addTag(tag.id, tag.tagName); }}
               >
                 {tag.tagName}
               </div>
             );
           })
         }
-      </div>
+      </Scrollable>
       <input
         type="text"
         className="add-tag-field"
